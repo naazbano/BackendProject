@@ -1,10 +1,14 @@
 import dotenv from "dotenv"
 import ConnectDB from "./db/index.js";
-import {app} from "./app.js"
-
+import express from "express"
+import userRouter from './routes/user.routes.js';
 dotenv.config({
   path:'./env'
 })
+const app= express()
+
+
+// Add this line BEFORE your routes
 
 
 ConnectDB()
@@ -19,6 +23,9 @@ ConnectDB()
 )=>{
 console.log("MongoDBconnection FAILED!!!",error);
 })
+app.use(express.json());
+app.use("/api/v1/users",userRouter);
+
 
 // ;(async()=>{
 //     try{
